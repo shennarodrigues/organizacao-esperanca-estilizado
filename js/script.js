@@ -1,56 +1,176 @@
-// script.js — menu hambúrguer, toast e validação simples
-document.addEventListener('DOMContentLoaded', function(){
-  const navToggle = document.querySelectorAll('.nav-toggle');
-  const mobileNavs = document.querySelectorAll('.mobile-nav');
-  const toastEl = document.getElementById('toast');
+// === Máscaras para CPF, Telefone e CEP ===
 
-  // Toggle mobile nav (works for multiple pages)
-  navToggle.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mobile = document.querySelector('.mobile-nav');
-      const expanded = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', !expanded);
-      if(mobile){
-        mobile.classList.toggle('open');
-        mobile.setAttribute('aria-hidden', mobile.classList.contains('open') ? 'false' : 'true');
-      }
-    });
-  });
+function mascaraCPF(cpf) {
+  cpf.value = cpf.value
+    .replace(/\D/g, "")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d)/, "$1.$2")
+    .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+}
 
-  // Simple toast helper
-  window.showToast = (msg, time = 3000) => {
-    if(!toastEl) return;
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    setTimeout(()=> toastEl.classList.remove('show'), time);
-  };
+function mascaraTelefone(tel) {
+  tel.value = tel.value
+    .replace(/\D/g, "")
+    .replace(/(\d{2})(\d)/, "($1) $2")
+    .replace(/(\d{4,5})(\d{4})$/, "$1-$2");
+}
 
-  // Basic form validation for cadastro page
-  const form = document.getElementById('formCadastro');
-  if(form){
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      // Email matching check (if exists)
-      const email = form.querySelector('#email') ? form.querySelector('#email').value.trim() : '';
-      const email2 = form.querySelector('#email2') ? form.querySelector('#email2').value.trim() : '';
-      if(email && email2 && email !== email2){
-        showToast('Os e-mails não conferem. Verifique antes de enviar.', 4500);
-        if(form.querySelector('#email2')) form.querySelector('#email2').focus();
-        return;
-      }
+function mascaraCEP(cep) {
+  cep.value = cep.value
+    .replace(/\D/g, "")
+    .replace(/(\d{5})(\d)/, "$1-$2");
+}
 
-      // Rely on HTML5 validity for patterns, etc.
-      if(!form.checkValidity()){
-        showToast('Preencha os campos obrigatórios corretamente.', 3500);
-        // highlight first invalid
-        const firstInvalid = form.querySelector(':invalid');
-        if(firstInvalid) firstInvalid.focus();
-        return;
-      }
+// === Função para mostrar toast/alerta na tela ===
 
-      // At this point, you can submit via fetch or show success
-      showToast('Cadastro enviado com sucesso!', 3000);
-      form.reset();
-    });
+function showToast(message, type = "success") {
+  // Cria o elemento toast se não existir
+  let toast = document.getElementById("toast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "toast";
+    toast.setAttribute("role", "alert");
+    toast.style.position = "fixed";
+    toast.style.bottom = "20px";
+    toast.style.right = "20px";
+    toast.style.padding = "12px 24px";
+    toast.style.borderRadius = "4px";
+    toast.style.color = "white";
+    toast.style.fontWeight = "bold";
+    toast.style.fontSize = "16px";
+    toast.style.zIndex = "9999";
+    toast.style.minWidth = "250px";
+    toast.style.textAlign = "center";
+    toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+    document.body.appendChild(toast);
   }
+
+  toast.textContent = message;
+
+  // Define cores por tipo
+  if (type === "error") {
+    toast.style.backgroundColor = "#e74c3c"; // vermelho
+  } else if (type === "warning") {
+    toast.style.backgroundColor = "#f39c12"; // amarelo
+  } else {
+    toast.style.backgroundColor = "#2ecc71"; // verde
+  }
+
+  toast.style.opacity = "1";
+
+  // Esconde depois de 4 segundos
+  setTimeout(() => {
+    toast.style.opacity = "0";
+  }, 4000);
+}
+
+// === Função para validar CPF (apenas números, com regra básica de tamanho) ===
+function validaCPF(cpf) {
+  // Remove caracteres não numéricos
+  const valor = cpf.replace(/\D/g, "");
+  return valor.length === 11;
+}
+
+// === Função para validar telefone (mínimo 10 ou 11 números) ===
+function validaTelefone(tel) {
+  const valor = tel.replace(/\D/g, "");
+  return valor.length >= 10 && valor.length <= 11;
+}
+
+// === Função para validar CEP (8 dígitos) ===
+function validaCEP(cep) {
+  const valor = cep.replace(/\D/g, "");
+  return valor.length === 8;
+}
+
+// === Função para validar e-mail simples ===
+function validaEmail(email) {
+  // Regex básica para e-mail
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
+// === Função principal para validar o formulário ===
+
+function validarFormulario(form) {
+  const nome = form.nome.value.trim();
+  const email = form.email.value.trim();
+  const email2 = form.email2.value.trim();
+  const cpf = form.cpf.value.trim();
+  const nascimento = form.nascimento.value;
+  const telefone = form.telefone.value.trim();
+  const cep = form.cep.value.trim();
+  const termos = form.termos.checked;
+
+  if (!nome) {
+    showToast("Por favor, preencha seu nome completo.", "error");
+    form.nome.focus();
+    return false;
+  }
+
+  if (!email || !validaEmail(email)) {
+    showToast("Por favor, insira um e-mail válido.", "error");
+    form.email.focus();
+    return false;
+  }
+
+  if (email !== email2) {
+    showToast("Os e-mails não conferem.", "error");
+    form.email2.focus();
+    return false;
+  }
+
+  if (!cpf || !validaCPF(cpf)) {
+    showToast("CPF inválido. Use o formato 000.000.000-00.", "error");
+    form.cpf.focus();
+    return false;
+  }
+
+  if (!nascimento) {
+    showToast("Por favor, selecione sua data de nascimento.", "error");
+    form.nascimento.focus();
+    return false;
+  }
+
+  if (!telefone || !validaTelefone(telefone)) {
+    showToast("Telefone inválido. Use o formato (00)00000-0000.", "error");
+    form.telefone.focus();
+    return false;
+  }
+
+  if (cep && !validaCEP(cep)) {
+    showToast("CEP inválido. Use o formato 00000-000.", "error");
+    form.cep.focus();
+    return false;
+  }
+
+  if (!termos) {
+    showToast("Você deve concordar com os termos para continuar.", "error");
+    form.termos.focus();
+    return false;
+  }
+
+  return true;
+}
+
+// === Função que controla o envio do formulário ===
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("formCadastro");
+
+  // Aplica máscaras nos inputs correspondentes
+  form.cpf.addEventListener("input", e => mascaraCPF(e.target));
+  form.telefone.addEventListener("input", e => mascaraTelefone(e.target));
+  form.cep.addEventListener("input", e => mascaraCEP(e.target));
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    if (validarFormulario(form)) {
+      showToast("Cadastro enviado com sucesso!", "success");
+
+      // Aqui você pode adicionar envio real ou limpar formulário
+      form.reset();
+    }
+  });
 });
