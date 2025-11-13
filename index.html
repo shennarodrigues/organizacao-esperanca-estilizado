@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Organização Esperança</title>
+  <meta name="description" content="Organização Esperança — projetos sociais, voluntariado e contato.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dark">
+  <div class="site">
+    <header class="site-header" role="banner">
+      <div class="container header-row">
+        <div class="brand">
+          <img src="img/sobre-nos.jpg" alt="Logomarca Organização Esperança" class="logo">
+          <div>
+            <h1 class="site-title">Organização Esperança</h1>
+            <p class="tagline">Transformando vidas através da solidariedade</p>
+          </div>
+        </div>
+
+        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
+
+        <nav class="primary-nav" role="navigation" aria-label="Menu principal">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li class="has-submenu">
+              <a href="projetos.html">Projetos</a>
+              <ul class="submenu" aria-label="submenu projetos">
+                <li><a href="projetos.html#solidariedade">Solidariedade</a></li>
+                <li><a href="projetos.html#doacoes">Doações</a></li>
+                <li><a href="projetos.html#voluntario">Voluntariado</a></li>
+              </ul>
+            </li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+            <li><a href="#contato">Contato</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="mobile-nav" aria-hidden="true">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="site-main" role="main">
+      <section class="hero container" aria-labelledby="hero-title">
+        <div class="hero-grid">
+          <div class="hero-text">
+            <h2 id="hero-title">Transformando vidas com ações locais</h2>
+            <p>Somos uma organização sem fins lucrativos dedicada a apoiar famílias em situação de vulnerabilidade — atuamos em saúde, educação e alimentação.</p>
+            <p><a class="btn btn-primary" href="projetos.html">Conheça nossos projetos</a></p>
+          </div>
+          <div class="hero-media">
+            <img src="img/voluntario.jpg" alt="Voluntários em ação" class="hero-img">
+          </div>
+        </div>
+      </section>
+
+      <section id="sobre" class="about container" aria-labelledby="about-title">
+        <h2 id="about-title">Sobre Nós</h2>
+        <p>
+          A <strong>Organização Esperança</strong> é uma instituição sem fins lucrativos dedicada a
+          promover ações sociais, educacionais e culturais para comunidades em situação de vulnerabilidade.
+          Nosso objetivo é transformar vidas através da solidariedade e do voluntariado.
+        </p>
+      </section>
+
+      <section id="contato" class="contact container" aria-labelledby="contact-title">
+        <h2 id="contact-title">Fale conosco</h2>
+        <address class="contact-grid">
+          <div>
+            <p>📍 Rua da Solidariedade, 123 — João Pessoa, PB</p>
+            <p>📞 <a href="tel:+5583999999999">(83) 99999-9999</a></p>
+            <p>📧 <a href="mailto:contato@organizacaoesperanca.org">contato@organizacaoesperanca.org</a></p>
+          </div>
+          <div>
+          </div>
+        </address>
+      </section>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-grid">
+        <p>&copy; <span id="year"></span> Organização Esperança — Todos os direitos reservados.</p>
+        <p>Desenvolvido por Shenna Rodrigues</p>
+      </div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/script.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

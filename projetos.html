@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projetos — Organização Esperança</title>
+  <meta name="description" content="Projetos sociais da Organização Esperança: voluntariado e como doar.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="theme-dark">
+  <div class="site">
+    <header class="site-header" role="banner">
+      <div class="container header-row">
+        <div class="brand">
+          <img src="img/sobre-nos.jpg" alt="Logomarca Organização Esperança" class="logo">
+          <div>
+            <h1 class="site-title">Organização Esperança</h1>
+          </div>
+        </div>
+
+        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+          <span class="hamburger"></span>
+        </button>
+
+        <nav class="primary-nav" role="navigation" aria-label="Menu principal">
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li class="has-submenu"><a href="projetos.html">Projetos</a></li>
+            <li><a href="cadastro.html">Cadastro</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="mobile-nav" aria-hidden="true">
+        <ul>
+          <li><a href="index.html">Início</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="cadastro.html">Cadastro</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="site-main container" role="main">
+      <h2>Nossos Projetos</h2>
+      <p>Conheça alguns dos projetos desenvolvidos pela nossa organização:</p>
+
+      <div class="cards">
+        <article class="card" id="solidariedade">
+          <img src="img/solidariedade.jpg" alt="Ação social do projeto Solidariedade" class="card-img">
+          <div class="card-body">
+            <h3>Projeto Solidariedade</h3>
+            <p>Campanha de arrecadação de alimentos e roupas para famílias carentes.</p>
+            <div class="card-meta">
+              <span class="badge">Em andamento</span>
+              <a class="btn btn-ghost" href="cadastro.html">Participar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" id="doacoes">
+          <img src="img/doacoes.jpg" alt="Voluntários organizando doações" class="card-img">
+          <div class="card-body">
+            <h3>Projeto Doações</h3>
+            <p>Iniciativa para arrecadar e distribuir materiais escolares para crianças.</p>
+            <div class="card-meta">
+              <span class="badge">Aberto</span>
+              <a class="btn btn-ghost" href="cadastro.html">Doar</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" id="voluntario">
+          <img src="img/voluntario.jpg" alt="Equipe de voluntários da organização" class="card-img">
+          <div class="card-body">
+            <h3>Projeto Voluntário</h3>
+            <p>Espaço de incentivo ao voluntariado em diversas áreas sociais.</p>
+            <div class="card-meta">
+              <span class="badge">Participe</span>
+              <a class="btn btn-ghost" href="cadastro.html">Inscrever-se</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+      <div class="container footer-grid">
+        <p>&copy; <span id="year-p"></span> Organização Esperança</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>document.getElementById('year-p').textContent = new Date().getFullYear();</script>
+  <script src="js/script.js"></script>
+</body>
+</html>

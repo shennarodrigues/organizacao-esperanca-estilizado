@@ -1,0 +1,17 @@
+# Organização Esperança
+
+Site institucional da Organização Esperança — projeto desenvolvido para as Atividades Práticas de HTML5 e CSS3.
+
+## Estrutura do projeto
+- `index.html` — página inicial com informações e contato.
+- `projetos.html` — página listando projetos sociais.
+- `cadastro.html` — formulário de cadastro de voluntários/doados (com fieldsets e patterns).
+- `css/style.css` — estilos (tema escuro, design system, grid 12-col, responsividade).
+- `js/script.js` — menu hambúrguer, toasts e validação simples.
+- `img/` — imagens usadas no projeto.
+
+## Observações
+- O formulário implementa validação nativa (`required`, `pattern`) para CPF, telefone e CEP, além do agrupamento com `fieldset`/`legend`.
+
+## Autor
+Shenna Rodrigues
