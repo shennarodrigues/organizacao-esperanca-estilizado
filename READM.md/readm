@@ -1,17 +1,46 @@
 # Organização Esperança
 
-Site institucional da Organização Esperança — projeto desenvolvido para as Atividades Práticas de HTML5 e CSS3.
+Site institucional da Organização Esperança — projeto desenvolvido para as Atividades Práticas de HTML5, CSS3 e JavaScript avançado, como parte do curso.
 
-## Estrutura do projeto
-- `index.html` — página inicial com informações e contato.
-- `projetos.html` — página listando projetos sociais.
-- `cadastro.html` — formulário de cadastro de voluntários/doados (com fieldsets e patterns).
-- `css/style.css` — estilos (tema escuro, design system, grid 12-col, responsividade).
-- `js/script.js` — menu hambúrguer, toasts e validação simples.
-- `img/` — imagens usadas no projeto.
+## Tecnologias Utilizadas
 
-## Observações
-- O formulário implementa validação nativa (`required`, `pattern`) para CPF, telefone e CEP, além do agrupamento com `fieldset`/`legend`.
+- HTML5 semântico e acessível  
+- CSS3 com Design System (variáveis CSS, paleta de cores, grid 12 colunas, responsividade com Flexbox e Grid)  
+- JavaScript para validação de formulários, menu hambúrguer e feedbacks (toasts)  
+- Controle de versão via Git/GitHub com branching e Pull Requests  
 
-## Autor
-Shenna Rodrigues
+## Estrutura do Projeto
+
+- `index.html` — página inicial com informações e contato  
+- `projetos.html` — página listando projetos sociais  
+- `cadastro.html` — formulário de cadastro de voluntários/doadores, com validações e máscaras (CPF, telefone, CEP)  
+- `css/style.css` — estilos, tema escuro, grid responsivo, sistema de espaçamento modular  
+- `js/script.js` — scripts para interação e validação  
+- `img/` — imagens usadas no site  
+
+## Acessibilidade
+
+- Uso correto de elementos semânticos (`header`, `main`, `nav`, `footer`, `fieldset`, `legend`)  
+- Navegação por teclado garantida  
+- Contraste adequado para legibilidade (mínimo 4.5:1)  
+- Uso de atributos ARIA para suporte a leitores de tela  
+
+## Otimização para Produção
+
+- Arquivos minificados (CSS e JavaScript) — *(se aplicável)*  
+- Compressão e otimização das imagens — *(se aplicável)*  
+
+## Histórico de Versões
+
+- **Entrega 2** — estrutura HTML e estilização CSS responsiva com sistema de design e componentes acessíveis  
+- **Entrega 3** — funcionalidades avançadas em JavaScript, validação de formulário, feedbacks e SPA básica  
+
+## Link do Site Publicado
+
+[https://shennarodrigues.github.io/organizacao-esperanca-estilizado/](https://shennarodrigues.github.io/organizacao-esperanca-estilizado/)
+
+## Como Executar Localmente
+
+1. Clone o repositório:  
+   ```bash
+   git clone https://github.com/shennarodrigues/organizacao-esperanca-estilizado.git
