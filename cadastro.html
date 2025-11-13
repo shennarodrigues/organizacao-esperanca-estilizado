@@ -55,10 +55,19 @@
           <input id="email" name="email" type="email" required maxlength="100" aria-required="true">
 
           <label for="cpf">CPF * <small>(000.000.000-00)</small></label>
-          <input id="cpf" name="cpf" type="text" inputmode="numeric"
-                 pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
-                 placeholder="000.000.000-00" maxlength="14"
-                 title="Digite o CPF no formato 000.000.000-00" required aria-required="true">
+          <input 
+            id="cpf" 
+            name="cpf" 
+            type="text" 
+            inputmode="numeric" 
+            maxlength="14" 
+            oninput="mascaraCPF(this)" 
+            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" 
+            placeholder="000.000.000-00" 
+            title="Digite o CPF no formato 000.000.000-00" 
+            required 
+            aria-required="true"
+          >
 
           <label for="nascimento">Data de nascimento *</label>
           <input id="nascimento" name="nascimento" type="date" required aria-required="true">
@@ -68,10 +77,19 @@
           <legend>Contato</legend>
 
           <label for="telefone">Telefone * <small>(formato: (00)00000-0000)</small></label>
-          <input id="telefone" name="telefone" type="tel" inputmode="tel"
-                 pattern="\(\d{2}\)\s?\d{4,5}-\d{4}"
-                 placeholder="(00) 00000-0000" maxlength="15"
-                 title="Digite o telefone no formato (00)00000-0000" required aria-required="true">
+          <input 
+            id="telefone" 
+            name="telefone" 
+            type="tel" 
+            inputmode="tel" 
+            maxlength="15" 
+            oninput="mascaraTelefone(this)" 
+            pattern="\(\d{2}\)\s?\d{4,5}-\d{4}" 
+            placeholder="(00) 00000-0000" 
+            title="Digite o telefone no formato (00)00000-0000" 
+            required 
+            aria-required="true"
+          >
 
           <label for="email2">Confirme o e-mail *</label>
           <input id="email2" name="email2" type="email" required maxlength="100" aria-required="true">
@@ -84,10 +102,18 @@
           <input id="endereco" name="endereco" type="text" maxlength="200">
 
           <label for="cep">CEP <small>(00000-000)</small></label>
-          <input id="cep" name="cep" type="text" inputmode="numeric"
-                 pattern="\d{5}-\d{3}"
-                 placeholder="00000-000" maxlength="9"
-                 title="Digite o CEP no formato 00000-000">
+          <input 
+            id="cep" 
+            name="cep" 
+            type="text" 
+            inputmode="numeric" 
+            oninput="mascaraCEP(this)" 
+            pattern="\d{5}-\d{3}" 
+            placeholder="00000-000" 
+            maxlength="9" 
+            title="Digite o CEP no formato 00000-000"
+            required
+          >
 
           <label for="cidade">Cidade</label>
           <input id="cidade" name="cidade" type="text" maxlength="100">
@@ -130,5 +156,29 @@
 
   <script>document.getElementById('year-c').textContent = new Date().getFullYear();</script>
   <script src="js/script.js"></script>
+
+  <script>
+  function mascaraCPF(cpf) {
+    cpf.value = cpf.value
+      .replace(/\D/g, "")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d)/, "$1.$2")
+      .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  }
+
+  function mascaraCEP(cep) {
+    cep.value = cep.value
+      .replace(/\D/g, "")
+      .replace(/(\d{5})(\d)/, "$1-$2");
+  }
+
+  function mascaraTelefone(tel) {
+    tel.value = tel.value
+      .replace(/\D/g, "")
+      .replace(/(\d{2})(\d)/, "($1) $2")
+      .replace(/(\d{4,5})(\d{4})$/, "$1-$2");
+  }
+  </script>
 </body>
 </html>
+
