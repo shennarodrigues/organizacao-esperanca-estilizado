@@ -7,28 +7,34 @@
   <meta name="description" content="Organização Esperança — projetos sociais, voluntariado e contato.">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="theme-dark">
+<body class="theme-dark  high-contrast">
   <div class="site">
     <header class="site-header" role="banner">
       <div class="container header-row">
         <div class="brand">
-          <img src="img/sobre-nos.jpg" alt="Logomarca Organização Esperança" class="logo">
+          <img src="img/sobre-nos.jpg" alt="Logomarca Organização Esperança" class="logo" />
           <div>
             <h1 class="site-title">Organização Esperança</h1>
             <p class="tagline">Transformando vidas através da solidariedade</p>
           </div>
         </div>
 
-        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <button 
+          class="nav-toggle" 
+          aria-label="Abrir menu"
+          aria-expanded="false" 
+          aria-controls="primary-navigation"
+          id="menu-toggle"
+          >
           <span class="hamburger"></span>
         </button>
 
-        <nav class="primary-nav" role="navigation" aria-label="Menu principal">
+        <nav class="primary-nav" role="navigation" aria-label="Menu principal" id="primary-navigation" tabindex="-1">
           <ul>
             <li><a href="index.html">Início</a></li>
             <li class="has-submenu">
-              <a href="projetos.html">Projetos</a>
-              <ul class="submenu" aria-label="submenu projetos">
+              <a href="projetos.html" aria-haspopup="true" aria-expanded="false" aria-controls="submenu-projetos">Projetos</a>
+              <ul class="submenu" aria-label="submenu projetos" id="submenu-projetos" hidden>
                 <li><a href="projetos.html#solidariedade">Solidariedade</a></li>
                 <li><a href="projetos.html#doacoes">Doações</a></li>
                 <li><a href="projetos.html#voluntario">Voluntariado</a></li>
@@ -59,7 +65,7 @@
             <p><a class="btn btn-primary" href="projetos.html">Conheça nossos projetos</a></p>
           </div>
           <div class="hero-media">
-            <img src="img/voluntario.jpg" alt="Voluntários em ação" class="hero-img">
+            <img src="img/voluntario.jpg" alt="Voluntários em ação" class="hero-img" />
           </div>
         </div>
       </section>
@@ -95,9 +101,51 @@
     </footer>
   </div>
 
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
   <script src="js/script.js"></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Controle de submenu para acessibilidade
+    const menuToggle = document.getElementById('menu-toggle');
+    const primaryNav = document.getElementById('primary-navigation');
+    const projetosMenu = primaryNav.querySelector('.has-submenu > a');
+    const submenu = document.getElementById('submenu-projetos');
+
+    menuToggle.addEventListener('click', () => {
+      const expanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+      menuToggle.setAttribute('aria-expanded', !expanded);
+      primaryNav.style.display = primaryNav.style.display === 'block' ? 'none' : 'block';
+      primaryNav.focus();
+    });
+
+    projetosMenu.addEventListener('click', e => {
+      e.preventDefault();
+      const expanded = projetosMenu.getAttribute('aria-expanded') === 'true' || false;
+      projetosMenu.setAttribute('aria-expanded', !expanded);
+      if (submenu.hasAttribute('hidden')) {
+        submenu.removeAttribute('hidden');
+      } else {
+        submenu.setAttribute('hidden', '');
+      }
+    });
+
+    // Navegação por teclado adicional para submenu
+    projetosMenu.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        projetosMenu.click();
+        submenu.querySelector('a').focus();
+      }
+      if (e.key === 'Escape') {
+        projetosMenu.setAttribute('aria-expanded', 'false');
+        submenu.setAttribute('hidden', '');
+        projetosMenu.focus();
+      }
+    });
+
+  </script>
 </body>
 </html>
+
