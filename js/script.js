@@ -24,12 +24,13 @@ function mascaraCEP(cep) {
 // === Função para mostrar toast/alerta na tela ===
 
 function showToast(message, type = "success") {
-  // Cria o elemento toast se não existir
   let toast = document.getElementById("toast");
   if (!toast) {
     toast = document.createElement("div");
     toast.id = "toast";
     toast.setAttribute("role", "alert");
+    toast.setAttribute("aria-live", "polite");
+    toast.setAttribute("aria-atomic", "true");
     toast.style.position = "fixed";
     toast.style.bottom = "20px";
     toast.style.right = "20px";
@@ -42,50 +43,48 @@ function showToast(message, type = "success") {
     toast.style.minWidth = "250px";
     toast.style.textAlign = "center";
     toast.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
+    toast.style.transition = "opacity 0.3s ease";
     document.body.appendChild(toast);
   }
 
   toast.textContent = message;
 
-  // Define cores por tipo
   if (type === "error") {
-    toast.style.backgroundColor = "#e74c3c"; // vermelho
+    toast.style.backgroundColor = "#e74c3c";
   } else if (type === "warning") {
-    toast.style.backgroundColor = "#f39c12"; // amarelo
+    toast.style.backgroundColor = "#f39c12";
   } else {
-    toast.style.backgroundColor = "#2ecc71"; // verde
+    toast.style.backgroundColor = "#2ecc71";
   }
 
   toast.style.opacity = "1";
 
-  // Esconde depois de 4 segundos
+  toast.setAttribute("tabindex", "-1");
+  toast.focus();
+
   setTimeout(() => {
     toast.style.opacity = "0";
   }, 4000);
 }
 
-// === Função para validar CPF (apenas números, com regra básica de tamanho) ===
+// === Validações ===
+
 function validaCPF(cpf) {
-  // Remove caracteres não numéricos
   const valor = cpf.replace(/\D/g, "");
   return valor.length === 11;
 }
 
-// === Função para validar telefone (mínimo 10 ou 11 números) ===
 function validaTelefone(tel) {
   const valor = tel.replace(/\D/g, "");
   return valor.length >= 10 && valor.length <= 11;
 }
 
-// === Função para validar CEP (8 dígitos) ===
 function validaCEP(cep) {
   const valor = cep.replace(/\D/g, "");
   return valor.length === 8;
 }
 
-// === Função para validar e-mail simples ===
 function validaEmail(email) {
-  // Regex básica para e-mail
   const re = /\S+@\S+\.\S+/;
   return re.test(email);
 }
@@ -153,24 +152,50 @@ function validarFormulario(form) {
   return true;
 }
 
-// === Função que controla o envio do formulário ===
+// === Controle do envio do formulário, máscaras e menu hamburguer ===
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("formCadastro");
 
-  // Aplica máscaras nos inputs correspondentes
-  form.cpf.addEventListener("input", e => mascaraCPF(e.target));
-  form.telefone.addEventListener("input", e => mascaraTelefone(e.target));
-  form.cep.addEventListener("input", e => mascaraCEP(e.target));
+  if(form) {
+    form.cpf.addEventListener("input", e => mascaraCPF(e.target));
+    form.telefone.addEventListener("input", e => mascaraTelefone(e.target));
+    form.cep.addEventListener("input", e => mascaraCEP(e.target));
 
-  form.addEventListener("submit", e => {
-    e.preventDefault();
+    form.addEventListener("submit", e => {
+      e.preventDefault();
 
-    if (validarFormulario(form)) {
-      showToast("Cadastro enviado com sucesso!", "success");
+      if (validarFormulario(form)) {
+        showToast("Cadastro enviado com sucesso!", "success");
+        form.reset();
+        form.nome.focus();
+      }
+    });
+  }
 
-      // Aqui você pode adicionar envio real ou limpar formulário
-      form.reset();
-    }
-  });
+  // Controle do menu hamburguer
+  const menuToggle = document.getElementById('menu-toggle');
+  const mobileNav = document.querySelector('.mobile-nav');  // CORREÇÃO AQUI: usar a classe mobile-nav
+
+  if(menuToggle && mobileNav) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = mobileNav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+      mobileNav.setAttribute('aria-hidden', !isOpen);
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (event) => {
+        mobileNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', false);
+        mobileNav.setAttribute('aria-hidden', true);
+
+        // Se o link for para a mesma página, impede recarregamento e só fecha o menu
+        if (link.href === window.location.href) {
+          event.preventDefault();
+        }
+      });
+    });
+  }
 });
+
