@@ -18,7 +18,8 @@
           </div>
         </div>
 
-        <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <!-- Botão do menu hamburguer com id para JS -->
+        <button id="menu-toggle" class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobile-navigation">
           <span class="hamburger"></span>
         </button>
 
@@ -31,13 +32,14 @@
         </nav>
       </div>
 
-      <div class="mobile-nav" aria-hidden="true">
+      <!-- Menu móvel -->
+      <nav id="mobile-navigation" class="mobile-nav" aria-label="Menu principal móvel" aria-hidden="true">
         <ul>
           <li><a href="index.html">Início</a></li>
           <li><a href="projetos.html">Projetos</a></li>
           <li><a href="cadastro.html">Cadastro</a></li>
         </ul>
-      </div>
+      </nav>
     </header>
 
     <main class="site-main container" role="main">
